@@ -18,12 +18,12 @@ const MultiSelect = ({ options, selected, onChange, placeholder, icon: Icon }) =
   return (
     <div className="relative">
       <div
-        className="border rounded-lg p-3 flex items-center justify-between cursor-pointer bg-white shadow-sm hover:border-blue-400 transition-colors"
+        className="border rounded-lg p-3 flex items-center justify-between cursor-pointer bg-white dark:bg-gray-800 shadow-sm hover:border-blue-400 transition-colors"
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex items-center gap-2">
-          {Icon && <Icon className="w-4 h-4 text-gray-500" />}
-          <span className="text-gray-700">
+          {Icon && <Icon className="w-4 h-4 text-gray-500 dark:text-gray-400" />}
+          <span className="text-gray-700 dark:text-gray-300">
             {selected.length === 0 ? placeholder : `${selected.length} selected`}
           </span>
         </div>
@@ -31,9 +31,9 @@ const MultiSelect = ({ options, selected, onChange, placeholder, icon: Icon }) =
       </div>
       
       {isOpen && (
-        <div className="absolute z-50 w-full mt-2 bg-white border rounded-lg shadow-lg max-h-48 overflow-auto">
+        <div className="absolute z-50 w-full mt-2 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-lg shadow-lg max-h-48 overflow-auto">
           {options.map(option => (
-            <label key={option} className="flex items-center px-4 py-2 hover:bg-gray-50 cursor-pointer">
+            <label key={option} className="flex items-center px-4 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
               <input
                 type="checkbox"
                 checked={selected.includes(option)}
@@ -45,7 +45,7 @@ const MultiSelect = ({ options, selected, onChange, placeholder, icon: Icon }) =
                 }}
                 className="mr-3 h-4 w-4 rounded border-gray-300 text-blue-600"
               />
-              <span className="text-gray-700">{option}</span>
+              <span className="text-gray-700 dark:text-gray-300">{option}</span>
             </label>
           ))}
         </div>
@@ -190,12 +190,11 @@ function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Content Dashboard</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Content Dashboard</h1>
           <div className="flex gap-3 items-center">
-            <span className="text-gray-600">Welcome, {user.firstName || user.username}!</span>
             <button
               onClick={exportPDF}
               className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
@@ -215,13 +214,6 @@ function Dashboard() {
               <Download className="w-4 h-4" />
               Export CSV
             </CSVLink>
-            <button
-      onClick={handleSignOut}
-      className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
-    >
-      <LogOut className="w-4 h-4" />
-      Sign Out
-    </button>
           </div>
         </div>
 
@@ -234,7 +226,7 @@ function Dashboard() {
               placeholder="Search articles..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:text-white dark:border-gray-700"
             />
           </div>
           <MultiSelect
@@ -257,7 +249,7 @@ function Dashboard() {
               type="number"
               value={payoutRate}
               onChange={(e) => dispatch(updatePayoutRate(parseFloat(e.target.value) || 0))}
-              className="w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:text-white dark:border-gray-700"
               min="0"
               step="0.01"
               placeholder="Payout Rate ($)"
@@ -267,14 +259,14 @@ function Dashboard() {
 
         {/* Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-white p-6 rounded-xl shadow-sm">
-            <h3 className="text-lg font-semibold mb-4">Content Distribution</h3>
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm">
+            <h3 className="text-lg font-semibold mb-4 dark:text-white">Content Distribution</h3>
             <div className="h-64">
               <Bar data={chartData.barChart} options={{ maintainAspectRatio: false }} />
             </div>
           </div>
-          <div className="bg-white p-6 rounded-xl shadow-sm">
-            <h3 className="text-lg font-semibold mb-4">Author Distribution</h3>
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm">
+            <h3 className="text-lg font-semibold mb-4 dark:text-white">Author Distribution</h3>
             <div className="h-64">
               <Pie data={chartData.pieChart} options={{ maintainAspectRatio: false }} />
             </div>
@@ -282,26 +274,26 @@ function Dashboard() {
         </div>
 
         {/* Payout Table */}
-        <div id="payout-table" className="bg-white rounded-xl shadow-sm overflow-hidden">
+        <div id="payout-table" className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden">
           <div className="p-6 border-b">
             <h3 className="text-lg font-semibold">Payout Summary</h3>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50">
+              <thead className="bg-gray-50 dark:bg-gray-700">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Author</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Articles</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Payout</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Author</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Articles</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Payout</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {payoutData.length > 0 ? (
                   payoutData.map(payout => (
-                    <tr key={payout.author} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{payout.author}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{payout.articleCount}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${payout.amount.toFixed(2)}</td>
+                    <tr key={payout.author} className="hover:bg-gray-50 dark:hover:bg-black">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{payout.author}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{payout.articleCount}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">${payout.amount.toFixed(2)}</td>
                     </tr>
                   ))
                 ) : (
@@ -311,10 +303,10 @@ function Dashboard() {
                 )}
               </tbody>
               {payoutData.length > 0 && (
-                <tfoot className="bg-gray-50">
+                <tfoot className="bg-gray-50 dark:bg-gray-700">
                   <tr>
-                    <td colSpan="2" className="px-6 py-4 text-sm font-medium text-gray-900">Total Payout:</td>
-                    <td className="px-6 py-4 text-sm font-medium text-gray-900">
+                    <td colSpan="2" className="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">Total Payout:</td>
+                    <td className="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">
                       ${payoutData.reduce((sum, p) => sum + p.amount, 0).toFixed(2)}
                     </td>
                   </tr>
@@ -329,3 +321,4 @@ function Dashboard() {
 }
 
 export default Dashboard;
+

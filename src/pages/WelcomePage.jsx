@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { BackgroundLines } from "../components/ui/background-lines";
 
 function WelcomePage() {
   const navigate = useNavigate();
@@ -9,25 +9,17 @@ function WelcomePage() {
     const timer = setTimeout(() => {
       navigate('/home');
     }, 2000);
-
     return () => clearTimeout(timer);
   }, [navigate]);
 
   return (
-    <div className="h-screen w-full flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="text-center"
-      >
-        <h1 className="text-4xl font-bold text-white mb-4">Welcome to Dashboard</h1>
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-          className="w-16 h-16 border-4 border-white border-t-transparent rounded-full mx-auto"
-        />
-      </motion.div>
+    <div className="dark">
+      <BackgroundLines className="h-screen w-full flex items-center justify-center flex-col px-4 bg-neutral-900">
+        <h2 className="bg-clip-text text-transparent text-center bg-gradient-to-b from-neutral-100 to-white text-2xl md:text-4xl lg:text-7xl font-sans py-2 md:py-10 relative z-20 font-bold tracking-tight">
+          Welcome to SportsDuniya
+        </h2>
+        <div className="w-16 h-16 border-4 border-white border-t-transparent rounded-full mx-auto animate-spin" />
+      </BackgroundLines>
     </div>
   );
 }
